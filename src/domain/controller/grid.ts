@@ -12,18 +12,42 @@ export class Grid {
   constructor() {
     this.grid = new Array(this.height);
     this.nextGenGrid = new Array(this.height);
-    this.deadCellToCheck = new Array(this.height + 2);
 
-    for ( let row = (this.delay - 1) ; row < this.height + (this.delay + 1) ; row++ ) {
-      this.deadCellToCheck[row] = new Array(this.width + 2);
-    }
-
+    this.resetDeadCellTable();
     this.generateGrid();
   }
+
+
+  /*
+  * Set grid
+  */
 
   getGrid() {
     return this.grid;
   }
+
+
+  /*
+  * Set height
+  */
+
+  setHeight(height: number = this.grid.length) {
+    this.height = height;
+  }
+
+
+  /*
+  * Set width
+  */
+
+  setWidth(width: number = this.grid[this.delay].length) {
+    this.width = width;
+  }
+
+
+  /*
+  * Generate First grid
+  */
 
   generateGrid() {
     for (let row = this.delay ; row < this.height + this.delay ; row++) {
@@ -39,6 +63,11 @@ export class Grid {
       }
     }
   }
+
+
+  /*
+  * Public method to calculate next generation
+  */
 
   calculateNextGen() {
     let siblings = 0;
@@ -113,6 +142,22 @@ export class Grid {
         this.grid[row][col].setState(this.nextGenGrid[row][col]);
       }
     }
-    this.deadCellToCheck = [];
+    
+    this.setHeight();
+    this.setWidth();
+    this.resetDeadCellTable();
+  }
+
+
+  /*
+  * Set and reset table of dead cells next to alive ones
+  */
+
+  resetDeadCellTable() {
+    this.deadCellToCheck = new Array(this.height + 2);
+
+    for ( let row = (this.delay - 1) ; row < this.height + (this.delay + 1) ; row++ ) {
+      this.deadCellToCheck[row] = new Array(this.width + 2);
+    }
   }
 }

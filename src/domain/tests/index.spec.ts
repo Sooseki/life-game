@@ -2,7 +2,6 @@
 import * as matchers from "jest-extended";
 import { Game } from "../controller/game";
 import { Cell } from "../controller/cell";
-import { boolean } from "mathjs";
 import { Grid } from "../controller/grid";
 expect.extend(matchers);
 
@@ -15,15 +14,23 @@ it("is cell a boolean", function () {
   expect(cell.state).toBeBoolean;
 });
 
-it("row indexes of grid is a table of coords", function () {
-  const grid = new Grid();
+
+const grid = new Grid();
+it("row indexes of grid is a table", function () {
   expect(grid.grid).toBeArray;
 });
 
+it("row indexes of grid is a table of Cells", function () {
+  const cell = grid.grid[grid.delay][grid.delay];
+  expect(cell).toBeObject;
+});
+
 it("next gen is a coherent table", function () {
-  const grid = new Grid();
-  console.table(grid.grid);
   grid.calculateNextGen();
-  console.table(grid.grid);
   expect(grid.grid).toBeArray;
+});
+
+it("next gen is a table of cells", function () {
+  const cell = grid.grid[grid.delay][grid.delay];
+  expect(cell).toBeArray;
 });
