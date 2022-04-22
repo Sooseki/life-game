@@ -9,7 +9,7 @@ it("jest-extended is included", function () {
   expect([1, 0]).toIncludeSameMembers([0, 1]);
 });
 
-it("is cell a boolean", function () {
+it("cell has a boolean property", function () {
   const cell = new Cell();
   expect(cell.state).toBeBoolean;
 });
