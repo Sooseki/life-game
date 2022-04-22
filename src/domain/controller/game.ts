@@ -3,7 +3,8 @@ import { Cell } from './cell';
 
 export class Game {
 
-  grid: Cell[][];
+  grid: Grid;
+  cells: Cell[][];
 
   constructor() {
     this.init();
@@ -11,6 +12,15 @@ export class Game {
 
   init() {
     const grid = new Grid();
-    this.grid = grid.getGrid();
+    this.cells = grid.getGrid();
+  }
+
+  getGrid() {
+    return this.cells;
+  }
+
+  getNextGen() {
+    this.grid.calculateNextGen();
+    this.cells = this.grid.getGrid();
   }
 }
