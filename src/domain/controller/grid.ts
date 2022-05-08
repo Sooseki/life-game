@@ -2,7 +2,6 @@ import { Cell } from './cell';
 
 export class Grid {
 
-  // delay: number = 1000;
   width: number;
   height: number;
   grid: Cell[];
