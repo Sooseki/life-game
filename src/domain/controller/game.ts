@@ -4,7 +4,7 @@ import { Cell } from './cell';
 export class Game {
 
   grid: Grid;
-  cells: Cell[][];
+  cells: Cell[];
 
   constructor() {
     this.init();

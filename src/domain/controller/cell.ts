@@ -1,9 +1,18 @@
 export class Cell {
 
+  x: number;
+  y: number;
   state: boolean;
 
-  constructor () {
-    this.generateState();
+  constructor (x: number, y: number, state: boolean = false, isRandom:boolean = true) {
+    if(isRandom) {
+      this.generateState();
+    } else {
+      this.state = state;
+    }
+
+    this.x = x;
+    this.y = y;
   }
 
   generateState() {
