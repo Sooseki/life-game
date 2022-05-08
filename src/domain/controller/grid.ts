@@ -1,4 +1,4 @@
-import { Cell } from './cell';
+import { Cell } from "./cell";
 
 export class Grid {
 
@@ -19,10 +19,9 @@ export class Grid {
     this.generateGrid(chosenGrid);
   }
 
-
   /*
-  * Set grid
-  */
+   * Set grid
+   */
 
   getGrid() {
     return this.grid;
@@ -51,8 +50,8 @@ export class Grid {
   }
 
   /*
-  * Public method to calculate next generation
-  */
+   * Public method to calculate next generation
+   */
 
   calculateNextGen() {
     let siblings = 0;
@@ -109,10 +108,9 @@ export class Grid {
     this.resetTables();
   }
 
-
   /*
-  * Set and reset table of dead cells next to alive ones
-  */
+   * Set and reset table of dead cells next to alive ones
+   */
 
   resetTables() {
     this.deadCellToCheck = [];

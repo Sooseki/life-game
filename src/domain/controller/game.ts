@@ -1,8 +1,7 @@
 import { Grid } from "./grid";
-import { Cell } from './cell';
+import { Cell } from "./cell";
 
 export class Game {
-
   grid: Grid;
   cells: Cell[];
 
@@ -12,6 +11,7 @@ export class Game {
 
   init() {
     const grid = new Grid();
+    console.log(grid);
     this.cells = grid.getGrid();
   }
 
