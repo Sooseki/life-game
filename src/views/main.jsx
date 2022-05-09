@@ -3,7 +3,7 @@ import React, { useRef, useState, useEffect } from "react";
 import { Controls } from "./controls/Controls";
 import { Form } from "./form/Form";
 import { Canvas } from "./canvas/Canvas";
-import { Count } from "./count/count";
+import { Count } from "./count/Count";
 
 export const Main = () => {
 
@@ -15,18 +15,6 @@ export const Main = () => {
   const [gameInterval, setGameIntervals] = useState("");
   const [grid, setGrid] = useState();
   const [count, setCount] = useState(1);
-  let tempCount = 1;
-
-  // initialize grid
-  // let grid;
-
-  // useEffect(() => {
-  //   if (myRef.current) {
-  //     let context = myRef.current.getContext("2d");
-  //     context.fillRect(25, 25, 100, 100);
-  //     drawGrid(20 * index, 10 * index, myRef.current);
-  //   }
-  // }, []);
 
   const displayCells = function (grid, context, color = "red") {
     grid.grid.map((cell) => {
@@ -40,22 +28,6 @@ export const Main = () => {
     });
   };
 
-  // const drawGrid = function (w, h, canvas) {
-  //   let ctx = canvas.getContext("2d");
-  //   ctx.canvas.width = w;
-  //   ctx.canvas.height = h;
-
-  //   for (let x = 0.5; x <= w; x += 20) {
-  //     ctx.moveTo(x, 0);
-  //     ctx.lineTo(x, h);
-  //     for (let y = 0.5; y <= h; y += 20) {
-  //       ctx.moveTo(0, y);
-  //       ctx.lineTo(w, y);
-  //     }
-  //   }
-  //   ctx.stroke();
-  // };
-
   const setGameInterval = function(newGrid, context, speed = 3, tempCount) {
     setGameIntervals(setInterval(() => {
       // Show prev alive cells
@@ -64,7 +36,7 @@ export const Main = () => {
       newGrid.calculateNextGen();
       // Display them
       displayCells(newGrid, context);
-
+      
       tempCount ? tempCount++ : count++;
       setCount(tempCount);
 
@@ -89,7 +61,7 @@ export const Main = () => {
 
         <Form setGrid={setGrid} setContext={setContext}></Form>
         <Canvas ref={myRef} />
-        <Controls interval={gameInterval} myRef={myRef} setGameInterval={setGameInterval} grid={grid}></Controls>
+        <Controls interval={gameInterval} myRef={myRef} setGameInterval={setGameInterval} grid={grid} count={count}></Controls>
 
         <Count count={count}></Count>
 

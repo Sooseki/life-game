@@ -19,7 +19,7 @@ export class Grid {
   }
 
   /*
-   * Set grid
+   * Get grid
    */
 
   getGrid() {
@@ -27,7 +27,7 @@ export class Grid {
   }
 
   /*
-  * Generate First grid
+  * Generate Random Fisrt grid
   */
 
   generateGrid(chosenGrid: Cell[]) {
@@ -73,8 +73,6 @@ export class Grid {
    */
 
   checkDeadCells () {
-    let siblings = 0;
-
     this.deadCellToCheck.map(cell => {
       if (this.getAliveSiblings(cell, false) === 3 ){
         this.nextGenGrid.push(new Cell(cell.x, cell.y, true, false));
@@ -94,6 +92,7 @@ export class Grid {
         if ( rowIndex == 0 && colIndex == 0 ) {
           continue;
         }
+
         if( this.grid.some(icell => (icell.x == cell.x + rowIndex && icell.y == cell.y + colIndex && icell.state == true) ? true : false) ) {
           siblings ++;
         } else {
