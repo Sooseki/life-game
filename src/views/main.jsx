@@ -5,8 +5,9 @@ import React, { useRef, useState, useEffect } from "react";
 
 export const Main = () => {
   const grid = new Grid();
-
   const myRef = useRef();
+  let index = 300;
+
   useEffect(() => {
     if (myRef.current) {
       let context = myRef.current.getContext("2d");
@@ -15,7 +16,7 @@ export const Main = () => {
       displayCells(grid.grid, context);
 
       const timeout = setInterval(() => {
-        clearCells(grid.grid, context);
+        displayCells(grid.grid, context, "orange");
         grid.calculateNextGen();
         displayCells(grid.grid, context);
       }, 2000);
@@ -23,24 +24,10 @@ export const Main = () => {
     }
   }, []);
 
-  let index = 300;
-
-  const displayCells = function (grid, context) {
+  const displayCells = function (grid, context, color = "red") {
     grid.map((cell) => {
-      context.fillStyle = "red";
+      context.fillStyle = color;
       context.fillRect(
-        cell.x * 20 + index + 1,
-        cell.y * 20 + index + 1,
-        18,
-        18
-      );
-    });
-  };
-
-  const clearCells = function (grid, context) {
-    grid.map((cell) => {
-      context.fillStyle = "red";
-      context.clearRect(
         cell.x * 20 + index + 1,
         cell.y * 20 + index + 1,
         18,
@@ -69,6 +56,7 @@ export const Main = () => {
     <>
       <div className="container">
         <canvas ref={myRef} height={15 * index} width={50 * index}></canvas>
+        <div className="controls"></div>
       </div>
     </>
   );
