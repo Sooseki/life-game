@@ -53,58 +53,63 @@ export class Grid {
    */
 
   calculateNextGen() {
-    let siblings = 0;
 
     // CHECK PREV ALIVE CELLS
     // ==========================================
 
     this.grid.map(cell => {
-
-      for ( let rowIndex = -1; rowIndex <= 1; rowIndex++) {
-        for ( let colIndex = -1; colIndex <= 1; colIndex++) {
-          if ( rowIndex == 0 && colIndex == 0 ) {
-            continue;
-          }
-          if( this.grid.some(icell => (icell.x == cell.x + rowIndex && icell.y == cell.y + colIndex && icell.state == true) ? true : false) ) {
-            siblings ++;
-          } else {
-            if (this.deadCellToCheck.some(icell => (icell.x == cell.x + rowIndex && icell.y == cell.y + colIndex) ? true : false ) || this.grid.some(icell => (icell.x == cell.x + rowIndex && icell.y == cell.y + colIndex) ? true : false )) {
-              // nothing
-            } else {
-              this.deadCellToCheck.push(new Cell(cell.x + rowIndex, cell.y + colIndex, false, false));
-            }
-          }
-        }
-      }
-
-      if (2 <= siblings && siblings <= 3){
+      if (2 <= this.getAliveSiblings(cell) && this.getAliveSiblings(cell) <= 3){
         this.nextGenGrid.push(new Cell(cell.x, cell.y, true, false));
       }
-
-      siblings = 0;
     });
 
+    this.checkDeadCells()
+    this.grid = this.nextGenGrid;
+    this.resetTables();
+  }
+
+  /*
+   * Get dead cells that wil become alive
+   */
+
+  checkDeadCells () {
+    let siblings = 0;
+
     this.deadCellToCheck.map(cell => {
-      for ( let rowIndex = -1; rowIndex <= 1; rowIndex++) {
-        for ( let colIndex = -1; colIndex <= 1; colIndex++) {
-          if ( rowIndex == 0 && colIndex == 0 ) {
+      if (this.getAliveSiblings(cell, false) === 3 ){
+        this.nextGenGrid.push(new Cell(cell.x, cell.y, true, false));
+      }
+    })
+  }
+
+
+  /*
+   * Get alive siblings to specific cell
+   */
+  getAliveSiblings(cell: Cell, addDeadCells: boolean = true) {
+    let siblings = 0;
+
+    for ( let rowIndex = -1; rowIndex <= 1; rowIndex++) {
+      for ( let colIndex = -1; colIndex <= 1; colIndex++) {
+        if ( rowIndex == 0 && colIndex == 0 ) {
+          continue;
+        }
+        if( this.grid.some(icell => (icell.x == cell.x + rowIndex && icell.y == cell.y + colIndex && icell.state == true) ? true : false) ) {
+          siblings ++;
+        } else {
+          if (!addDeadCells) {
             continue;
           }
-          if( this.grid.some(icell => (icell.x == cell.x + rowIndex && icell.y == cell.y + colIndex && icell.state == true) ? true : false) ) {
-            siblings ++;
+          if (this.deadCellToCheck.some(icell => (icell.x == cell.x + rowIndex && icell.y == cell.y + colIndex) ? true : false ) || this.grid.some(icell => (icell.x == cell.x + rowIndex && icell.y == cell.y + colIndex) ? true : false )) {
+            // nothing
+          } else {
+            this.deadCellToCheck.push(new Cell(cell.x + rowIndex, cell.y + colIndex, false, false));
           }
         }
       }
+    }
 
-      if (siblings === 3 ){
-        this.nextGenGrid.push(new Cell(cell.x, cell.y, true, false));
-      }
-
-      siblings =0;
-    })
-
-    this.grid = this.nextGenGrid;
-    this.resetTables();
+    return siblings;
   }
 
   /*
