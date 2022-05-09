@@ -36,15 +36,15 @@ it("next gen is a table of cells", function () {
 it("table of cells is correctly set when chosen", function () {
   const table = 
   [
-    new Cell(1, 1, true, false), new Cell(1, 2, true, false),
-    new Cell(2, 1, false, false), new Cell(2, 2, true, false)
+    new Cell(1, 1, true, false), 
+    new Cell(1, 2, true, false),
+    new Cell(2, 2, true, false)
   ];
 
   const currentGrid = new Grid(2, 2, table);
   expect(currentGrid.grid).toEqual([
     new Cell(1, 1, true, false), 
     new Cell(1, 2, true, false),
-    new Cell(2, 1, false, false),
     new Cell(2, 2, true, false),
   ]);
 });
@@ -52,8 +52,9 @@ it("table of cells is correctly set when chosen", function () {
 it("next gen is correctly calculated from chosen table of cells", function () {
   const table = 
   [
-    new Cell(1, 1, true, false), new Cell(1, 2, true, false),
-    new Cell(2, 1, false, false), new Cell(2, 2, true, false)
+    new Cell(1, 1, true, false), 
+    new Cell(1, 2, true, false),
+    new Cell(2, 2, true, false)
   ];
 
   let currentGrid = new Grid(2, 2, table);
@@ -62,7 +63,7 @@ it("next gen is correctly calculated from chosen table of cells", function () {
   expect(currentGrid.grid).toEqual([
     new Cell(1, 1, true, false), 
     new Cell(1, 2, true, false),
-    new Cell(2, 1, true, false),
     new Cell(2, 2, true, false),
+    new Cell(2, 1, true, false)
   ]);
 });
