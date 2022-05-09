@@ -8,7 +8,7 @@ export class Grid {
   nextGenGrid: Cell[];
   deadCellToCheck: Cell[];
 
-  constructor(chosenGrid: Cell[] = [], width: number = 5, height: number = 5) {
+  constructor(width: number = 5, height: number = 5, chosenGrid: Cell[] = []) {
     this.grid = [];
     this.nextGenGrid = [];
     this.width = width;

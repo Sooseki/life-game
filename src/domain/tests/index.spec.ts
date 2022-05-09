@@ -40,7 +40,7 @@ it("table of cells is correctly set when chosen", function () {
     new Cell(2, 1, false, false), new Cell(2, 2, true, false)
   ];
 
-  const currentGrid = new Grid(table, 2, 2);
+  const currentGrid = new Grid(2, 2, table);
   expect(currentGrid.grid).toEqual([
     new Cell(1, 1, true, false), 
     new Cell(1, 2, true, false),
@@ -56,10 +56,8 @@ it("next gen is correctly calculated from chosen table of cells", function () {
     new Cell(2, 1, false, false), new Cell(2, 2, true, false)
   ];
 
-  let currentGrid = new Grid(table, 2, 2);
+  let currentGrid = new Grid(2, 2, table);
   currentGrid.calculateNextGen();
-
-  console.log(currentGrid.grid);
 
   expect(currentGrid.grid).toEqual([
     new Cell(1, 1, true, false), 

@@ -29,5 +29,20 @@ body {
   left: 50%;
   transform: translateX(-50%);
   display: flex;
-  gap: 30px;
+  gap: 20px;
+}
+
+.playButton {
+  background-color: rgba(0, 0, 0, 0.8);
+  padding: 1rem;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateY(-50%) translateX(-50%);
+  color: #fff;
+}
+
+.hide {
+  pointer-events: none;
+  opacity: 0;
 }
