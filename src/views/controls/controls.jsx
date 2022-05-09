@@ -1,9 +1,8 @@
 import React from "react";
 
-export const Controls = ({interval, myRef, setGameInterval, grid}) => {
+export const Controls = ({interval, myRef, setGameInterval, grid, count}) => {
 
   const changeSpeed = function (event, speed) {
-
     clearInterval(interval);
     let context = myRef.current.getContext("2d");
     
@@ -11,7 +10,7 @@ export const Controls = ({interval, myRef, setGameInterval, grid}) => {
       return;
     }
 
-    setGameInterval(grid, context, speed);
+    setGameInterval(grid, context, speed, count);
   }
 
   return (

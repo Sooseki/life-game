@@ -1,0 +1,9 @@
+.count {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 1.5rem;
+    border-radius: 100%;
+}

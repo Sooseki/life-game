@@ -1,6 +1,7 @@
 import "./index.css";
 import React, { useRef, useState, useEffect } from "react";
 import { Controls } from "./controls/controls";
+import { Count } from "./count/count";
 import { Form } from "./form/form";
 
 export const Main = () => {
@@ -12,9 +13,13 @@ export const Main = () => {
   const index = 300;
   const [gameInterval, setGameIntervals] = useState("");
   const [grid, setGrid] = useState();
+  const [count, setCount] = useState(1);
+  let tempCount = 1;
+
   
   // initialize grid
   // let grid;
+
 
   useEffect(() => {
     if (myRef.current) {
@@ -52,7 +57,7 @@ export const Main = () => {
     ctx.stroke();
   };
 
-  const setGameInterval = function(newGrid, context, speed = 3) {
+  const setGameInterval = function(newGrid, context, speed = 3, tempCount) {
     setGameIntervals(setInterval(() => {
       // Show prev alive cells
       displayCells(newGrid, context, "orange");
@@ -60,6 +65,10 @@ export const Main = () => {
       newGrid.calculateNextGen();
       // Display them
       displayCells(newGrid, context);
+
+      tempCount ? tempCount++ : count++;
+      setCount(tempCount);
+
     }, baseSpeed * speed));
   }
 
@@ -80,7 +89,9 @@ export const Main = () => {
 
         <Form setGrid={setGrid} setContext={setContext}></Form>
 
-        <Controls interval={gameInterval} myRef={myRef} setGameInterval={setGameInterval} grid={grid}></Controls>
+        <Controls interval={gameInterval} myRef={myRef} setGameInterval={setGameInterval} grid={grid} count={count}></Controls>
+
+        <Count count={count}></Count>
 
       </div>
     </>
