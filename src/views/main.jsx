@@ -19,6 +19,7 @@ export const Main = () => {
         grid.calculateNextGen();
         displayCells(grid.grid, context);
       }, 2000);
+      return () => clearInterval(timeout);
     }
   }, []);
 
