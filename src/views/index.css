@@ -20,3 +20,14 @@
 body {
   margin: 0;
 }
+
+.controls {
+  position: fixed;
+  bottom: 40px;
+  background-color: rgba(0, 0, 0, 0.8);
+  padding: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 30px;
+}

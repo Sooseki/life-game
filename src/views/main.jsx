@@ -4,28 +4,30 @@ import "./index.css";
 import React, { useRef, useState, useEffect } from "react";
 
 export const Main = () => {
-  const grid = new Grid();
+  let grid = new Grid();
   const myRef = useRef();
-  let index = 300;
+  const baseSpeed = 1000;
+  const index = 300;
+  let interval;
+
 
   useEffect(() => {
     if (myRef.current) {
       let context = myRef.current.getContext("2d");
       context.fillRect(25, 25, 100, 100);
-      drawGrid(50 * index, 15 * index, myRef.current);
-      displayCells(grid.grid, context);
+      drawGrid(20 * index, 10 * index, myRef.current);
+      displayCells(context);
 
-      const timeout = setInterval(() => {
-        displayCells(grid.grid, context, "orange");
-        grid.calculateNextGen();
-        displayCells(grid.grid, context);
-      }, 2000);
-      return () => clearInterval(timeout);
+      interval = setInterval(() => {
+        setGameInterval(context);
+      }, baseSpeed * 3);
+
+      return () => clearInterval(interval);
     }
   }, []);
 
-  const displayCells = function (grid, context, color = "red") {
-    grid.map((cell) => {
+  const displayCells = function (context, color = "red") {
+    grid.grid.map((cell) => {
       context.fillStyle = color;
       context.fillRect(
         cell.x * 20 + index + 1,
@@ -52,11 +54,36 @@ export const Main = () => {
     ctx.stroke();
   };
 
+  const changeSpeed = function (event, speed) {
+    clearInterval(interval);
+    let context = myRef.current.getContext("2d");
+
+    if (speed == 0) {
+      return;
+    }
+
+    interval = setInterval(() => {
+      setGameInterval(context);
+    }, baseSpeed * speed);
+
+  }
+
+  const setGameInterval = function(context) {
+    displayCells(context, "orange");
+    grid.calculateNextGen();
+    displayCells(context);
+  }
+
   return (
     <>
       <div className="container">
-        <canvas ref={myRef} height={15 * index} width={50 * index}></canvas>
-        <div className="controls"></div>
+        <canvas ref={myRef} height={10 * index} width={20 * index}></canvas>
+        <div className="controls">
+          <button onClick={(e) => changeSpeed(e, 0)}>||</button>
+          <button onClick={(e) => changeSpeed(e, 3)}>x1</button>
+          <button onClick={(e) => changeSpeed(e, 2)}>x2</button>
+          <button onClick={(e) => changeSpeed(e, 1)}>x3</button>
+        </div>
       </div>
     </>
   );
